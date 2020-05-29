@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  webapp:
+    build: ./client
+    ports: 
+      - 80:80
+  backend:
+    build: ./server
+    environment: 
+      - ATLAS_URI=mongodb://mongo:27017/test
+      - PORT=8080
+    ports: 
+      - 8080:8080
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
