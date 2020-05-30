@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const apiUrl = process.env.NODE_ENV === 'production' ? window._env_.API_URL : `http://localhost:8080`;
 export default class CreateUser extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,7 @@ export default class CreateUser extends Component {
 
     console.log(user);
 
-    axios.post('http://localhost:8080/users/add', user)
+    axios.post(`${apiUrl}/users/add`, user)
       .then(res => console.log(res.data));
 
     this.setState({

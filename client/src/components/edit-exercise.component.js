@@ -3,6 +3,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+const apiUrl = process.env.NODE_ENV === 'production' ? window._env_.API_URL : `http://localhost:8080`;
 export default class EditExercise extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ export default class EditExercise extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/exercises/'+this.props.match.params.id)
+    axios.get(`${apiUrl}/exercises/`+this.props.match.params.id)
       .then(response => {
         this.setState({
           username: response.data.username,
@@ -36,7 +37,7 @@ export default class EditExercise extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:8080/users/')
+    axios.get(`${apiUrl}/users/`)
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
@@ -86,7 +87,7 @@ export default class EditExercise extends Component {
 
     console.log(exercise);
 
-    axios.put('http://localhost:8080/exercises/' + this.props.match.params.id, exercise)
+    axios.put(`${apiUrl}/exercises/` + this.props.match.params.id, exercise)
       .then(res => {
         console.log(res.data)
         window.location = '/';

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './exercises-list.css'
 
+const apiUrl = process.env.NODE_ENV === 'production' ? window._env_.API_URL : `http://localhost:8080`;
+
 const Exercise = props => (
   <tr>
     <td>{props.exercise.username}</td>
@@ -25,7 +27,7 @@ export default class ExercisesList extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8080/exercises/')
+    axios.get(`${apiUrl}/exercises/`)
       .then(response => {
         this.setState({ exercises: response.data })
       })
@@ -35,7 +37,7 @@ export default class ExercisesList extends Component {
   }
 
   deleteExercise(id) {
-    axios.delete('http://localhost:8080/exercises/'+id)
+    axios.delete(`${apiUrl}/exercises/`+id)
       .then(response => { console.log(response.data)});
 
     this.setState({

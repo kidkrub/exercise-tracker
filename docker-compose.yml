@@ -2,15 +2,17 @@ version: "3.8"
 services:
   webapp:
     build: ./client
+    environment: 
+      - API_URL=http://localhost:8000
     ports: 
       - 80:80
   backend:
     build: ./server
     environment: 
       - ATLAS_URI=mongodb://mongo:27017/test
-      - PORT=8080
+      - PORT=8000
     ports: 
-      - 8080:8080
+      - 8000:8000
     depends_on:
       - mongo
   mongo:
